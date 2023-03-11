@@ -6,6 +6,7 @@ int fact(int n) {
   }
   return fact(n - 1) * n;
 }
+
 int Ifact(int n) {
   int f{1};
   int i;
@@ -17,7 +18,7 @@ int Ifact(int n) {
 
 int main() {
   int i;
-  i = Ifact(8);
+  i = fact(8);
   cout << i << endl;
   return 0;
 }
