@@ -15,7 +15,7 @@ void display(int *a, int n) {
   cout << endl;
 }
 
-void selection_sort_ascending(int *a, int n) {
+void selection_sort_asc(int *a, int n) {
   int i, j, min;
 
   for (i = 0; i < n - 1; i++) {
@@ -25,12 +25,13 @@ void selection_sort_ascending(int *a, int n) {
         min = j;
       }
     }
-    //
-    swap(a[i], a[min]);
+    if (min != i) {
+      swap(a[i], a[min]);
+    }
   }
 }
 
-void selection_sort_descending(int *a, int n) {
+void selection_sort_desc(int *a, int n) {
   int i, j, max;
 
   for (i = 0; i < n - 1; i++) {
@@ -40,7 +41,9 @@ void selection_sort_descending(int *a, int n) {
         max = j;
       }
     }
-    swap(a[i], a[max]);
+    if (max != i) {
+      swap(a[i], a[max]);
+    }
   }
 }
 
@@ -52,11 +55,11 @@ int main() {
   display(a, n);
 
   cout << "day tang dan" << endl;
-  selection_sort_ascending(a, n);
+  selection_sort_asc(a, n);
   display(a, n);
 
   cout << "day giam dan" << endl;
-  selection_sort_descending(a, n);
+  selection_sort_desc(a, n);
   display(a, n);
 
   return 0;
