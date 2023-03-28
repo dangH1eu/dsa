@@ -19,7 +19,7 @@ template <typename T> struct List {
   T e[MAX];
 };
 
-void initialize(List<Sinhvien> &L) { L.count = -1; }
+void create(List<Sinhvien> &L) { L.count = -1; }
 
 int full(List<Sinhvien> L) { return L.count == MAX - 1; }
 
@@ -55,7 +55,7 @@ void nhap_sv(Sinhvien &sv) {
 }
 
 void nhap_ds(List<Sinhvien> &L) {
-  initialize(L);
+  create(L);
   Sinhvien x;
   int i = 1;
   do {
