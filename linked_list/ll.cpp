@@ -112,6 +112,7 @@ void sorted_insert(Node *p, int x) {
   Node *t, *q;
   q = nullptr;
 
+  // create a new Node
   t = new Node;
   t->data = x;
   t->next = nullptr;
@@ -119,10 +120,12 @@ void sorted_insert(Node *p, int x) {
   if (first == nullptr) {
     first = t;
   } else {
-    while (p && p->data < x) {
-      q = p;
-      p = p->next;
+
+    while (p != nullptr && p->data < x) {
+      q = p;       // q move to p
+      p = p->next; // p move to next Node
     }
+
     if (p == first) {
       t->next = first;
       first = t;
@@ -130,6 +133,31 @@ void sorted_insert(Node *p, int x) {
       t->next = q->next;
       q->next = t;
     }
+  }
+}
+
+void pop_front(Node *p) {
+  p = first;
+  first = first->next;
+  delete p;
+}
+
+void remove(Node *p, int index) {
+  Node *q;
+
+  if (index < 1 || index > count(p)) {
+    return;
+  }
+
+  if (index == 1) {
+    pop_front(p);
+  } else {
+    for (int i = 0; i < index - 1; i++) {
+      q = p;
+      p = p->next;
+    }
+    q->next = p->next;
+    delete p;
   }
 }
 int main() {
@@ -163,7 +191,11 @@ int main() {
   // insert(first, 9, 100);
   // display(first);
 
-  sorted_insert(first, 15);
+  // sorted_insert(first, 15);
+  // display(first);
+
+  remove(first, 4);
   display(first);
+
   return 0;
 }

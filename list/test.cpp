@@ -1,5 +1,3 @@
-#include <cctype>
-#include <cstdio>
 #include <iomanip>
 #include <iostream>
 #include <string>
@@ -25,7 +23,7 @@ int full(List<Sinhvien> L) { return L.count == MAX - 1; }
 
 int empty(List<Sinhvien> L) { return L.count == -1; }
 
-int add(List<Sinhvien> &L, Sinhvien x) {
+int push_back(List<Sinhvien> &L, Sinhvien x) {
   if (full(L)) {
     return 0;
   } else {
@@ -62,7 +60,7 @@ void nhap_ds(List<Sinhvien> &L) {
     if (x.masv.compare("***") == 0) {
       return;
     }
-    if (!add(L, x)) {
+    if (!push_back(L, x)) {
       return;
     }
     i++;
@@ -123,75 +121,75 @@ int xoa_sv8089(List<Sinhvien> &L) {
   remove(k, L);
   return 1;
 }
-//
-// int insert(int k, List<Sinhvien> &L) {
-//   int i;
-//   Sinhvien x;
-//   if (!full(L) && k <= L.count + 1 && k >= 1) {
-//     cout << "\nnhap sinh vien can bo sung\n";
-//     nhap_sv(x);
-//     for (i = L.count; i >= k; i--) {
-//       L.e[i + 1] = L.e[i];
-//     }
-//     L.count = L.count + 1;
-//     L.e[k - 1] = x;
-//     return 1;
-//   } else {
-//     return 0;
-//   }
-// }
-//
-// void liet_ke(List<Sinhvien> L) {
-//   int i = 0, d = 0;
-//   cout << setw(5) << "stt";
-//   cout << setw(10) << "ma sv";
-//   cout << setw(25) << "ho va ten";
-//   cout << setw(10) << "nam sinh";
-//   cout << setw(10) << "diem tk" << endl;
-//   while (i <= L.count) {
-//     if (L.e[i].ten.compare("Doanh") == 0) {
-//       cout << setw(5) << (i + 1);
-//       cout << setw(10) << L.e[i].masv;
-//       cout << setw(17) << L.e[i].hodem;
-//       cout << setw(8) << L.e[i].ten;
-//       cout << setw(10) << L.e[i].namsinh;
-//       cout << setw(10) << L.e[i].diemtk << endl;
-//       d++;
-//     }
-//     i++;
-//   }
-//   if (d == 0) {
-//     cout << "khong co ten sv ten Doanh" << endl;
-//   }
-// }
-//
-// void sort(List<Sinhvien> &L) {
-//   for (int i = 0; i <= L.count; i++) {
-//     for (int j = 0; j <= L.count - i; j++) {
-//       if (L.e[j].diemtk < L.e[j + 1].diemtk) {
-//         Sinhvien tg = L.e[j];
-//         L.e[j] = L.e[j + 1];
-//         L.e[j + 1] = tg;
-//       }
-//     }
-//   }
-// }
-//
-// int sort_insert(List<Sinhvien> &L) {
-//   Sinhvien x;
-//   if (full(L)) {
-//     return 0;
-//   }
-//   nhap_sv(x);
-//   int i = L.count;
-//   while (i >= 0 && L.e[i].diemtk < x.diemtk) {
-//     L.e[i + 1] = L.e[i];
-//     i--;
-//   }
-//   L.e[i + 1] = x;
-//   L.count++;
-//   return 1;
-// }
+
+int insert(int k, List<Sinhvien> &L) {
+  Sinhvien x;
+  if (!full(L) && k <= L.count + 1 && k >= 1) {
+    cout << "\nnhap sinh vien can bo sung\n";
+    cin.ignore(256, '\n');
+    nhap_sv(x);
+    for (int i = L.count; i >= k - 1; i--) {
+      L.e[i + 1] = L.e[i];
+    }
+    L.count++;
+    L.e[k - 1] = x;
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+void liet_ke(List<Sinhvien> L) {
+  int i = 0, d = 0;
+  cout << setw(5) << "stt";
+  cout << setw(10) << "ma sv";
+  cout << setw(25) << "ho va ten";
+  cout << setw(10) << "nam sinh";
+  cout << setw(10) << "diem tk" << endl;
+  while (i <= L.count) {
+    if (L.e[i].ten.compare("Doanh") == 0) {
+      cout << setw(5) << (i + 1);
+      cout << setw(10) << L.e[i].masv;
+      cout << setw(17) << L.e[i].hodem;
+      cout << setw(8) << L.e[i].ten;
+      cout << setw(10) << L.e[i].namsinh;
+      cout << setw(10) << L.e[i].diemtk << endl;
+      d++;
+    }
+    i++;
+  }
+  if (d == 0) {
+    cout << "khong co ten sv ten Doanh" << endl;
+  }
+}
+
+void sort(List<Sinhvien> &L) {
+  for (int i = 0; i <= L.count; i++) {
+    for (int j = 0; j <= L.count - i; j++) {
+      if (L.e[j].diemtk < L.e[j + 1].diemtk) {
+        Sinhvien tg = L.e[j];
+        L.e[j] = L.e[j + 1];
+        L.e[j + 1] = tg;
+      }
+    }
+  }
+}
+
+int sort_insert(List<Sinhvien> &L) {
+  Sinhvien x;
+  if (full(L)) {
+    return 0;
+  }
+  nhap_sv(x);
+  int i = L.count;
+  while (i >= 0 && L.e[i].diemtk < x.diemtk) {
+    L.e[i + 1] = L.e[i];
+    i--;
+  }
+  L.e[i + 1] = x;
+  L.count++;
+  return 1;
+}
 
 int main() {
   List<Sinhvien> L;
@@ -210,25 +208,28 @@ int main() {
   } else {
     cout << "khong co sv ma sv8089\n";
   }
-  //
-  // int k;
-  // cout << "nhap vi tri can bo sung: ";
-  // cin >> k;
-  // if (insert(k, L) == 1) {
-  //   cout << "\ndanh sach sv vua bo sung\n";
-  //   hien_thi_ds(L);
-  // } else {
-  //   cout << "vi tri khong thich hop\n";
-  // }
-  //
-  // sort(L);
-  // cout << "\ndanh sach duoc sap xep\n";
-  // hien_thi_ds(L);
-  // if (sort_insert(L) == 0) {
-  //   cout << "danh sach day\n";
-  // } else {
-  //   cout << "\ndanh sach bo sung sau sap xep \n";
-  //   hien_thi_ds(L);
-  // }
+
+  int k;
+  cout << "nhap vi tri can bo sung: ";
+  cin >> k;
+  if (insert(k, L) == 1) {
+    cout << "\ndanh sach sv vua bo sung\n";
+    hien_thi_ds(L);
+  } else {
+    cout << "vi tri khong thich hop\n";
+  }
+
+  liet_ke(L);
+
+  sort(L);
+  cout << "\ndanh sach duoc sap xep\n";
+  hien_thi_ds(L);
+
+  if (sort_insert(L) == 0) {
+    cout << "danh sach day\n";
+  } else {
+    cout << "\ndanh sach bo sung sau sap xep \n";
+    hien_thi_ds(L);
+  }
   return 0;
 }
